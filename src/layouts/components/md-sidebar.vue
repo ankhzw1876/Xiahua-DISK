@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import MdIcon from '@/components/icons/md-icon.vue';
+import MdIconMangodisk from '@/components/icons/md-icon-mangodisk.vue';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { APP_NAME, primaryNavGroupsForPlatform, SECONDARY_NAV_ITEMS } from '@/lib/models/application-shell';
 import type { PageId } from '@/lib/models/application-shell';
@@ -60,6 +61,10 @@ watch(
 
 <template>
   <aside class="sidebar" :class="{ expanded }">
+    <div v-if="platform === 'macos'" class="sidebar-brand" :aria-label="APP_NAME">
+      <MdIconMangodisk :size="30" />
+      <strong v-if="expanded">{{ APP_NAME }}</strong>
+    </div>
     <nav class="nav-list" :aria-label="APP_NAME">
       <div
         v-for="group in primaryNavGroups"
@@ -189,6 +194,18 @@ watch(
     min-width var(--sidebar-transition-duration, 240ms) var(--sidebar-transition-easing, ease);
   @apply bg-transparent text-sidebar-foreground;
 }
+.sidebar-brand {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding-inline: 19px;
+  color: var(--foreground);
+  white-space: nowrap;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
 .nav-list {
   display: flex;
   flex-direction: column;
@@ -241,7 +258,7 @@ watch(
   justify-content: flex-start;
   gap: 0;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 0 14px;
   background: transparent;
   color: inherit;

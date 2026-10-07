@@ -75,7 +75,7 @@ pub fn start(service: Arc<Service>) {
         SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
         let class = WNDCLASSW {
             lpfnWndProc: Some(procedure),
-            lpszClassName: w!("MangoDiskTaskbarStatus"),
+            lpszClassName: w!("XiahuaDiskTaskbarStatus"),
             hCursor: LoadCursorW(ptr::null_mut(), IDC_HAND),
             ..Default::default()
         };
@@ -150,8 +150,8 @@ pub fn start(service: Arc<Service>) {
             // reparenting a live popup across processes with mismatched DPI.
             let hwnd = CreateWindowExW(
                 WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE | WS_EX_LAYERED,
-                w!("MangoDiskTaskbarStatus"),
-                w!("MangoDisk Status"),
+                w!("XiahuaDiskTaskbarStatus"),
+                w!("XiahuaDisk Status"),
                 WS_CHILD | WS_CLIPSIBLINGS,
                 0,
                 0,
@@ -1058,7 +1058,7 @@ mod lifecycle_tests {
             }
             let class = WNDCLASSW {
                 lpfnWndProc: Some(fail_creation),
-                lpszClassName: w!("MangoDiskFailedCreationTest"),
+                lpszClassName: w!("XiahuaDiskFailedCreationTest"),
                 ..Default::default()
             };
             assert_ne!(RegisterClassW(&class), 0);

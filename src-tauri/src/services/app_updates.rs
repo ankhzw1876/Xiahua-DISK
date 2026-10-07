@@ -266,6 +266,18 @@ fn valid_system_locale(locale: String) -> Option<String> {
 pub(crate) fn start(app: &tauri::AppHandle) {
     let state = Arc::new(AppUpdates::new(SystemTime::now()));
     app.manage(state.clone());
+    // This fork uses manual GitHub Releases until its own signing key is provisioned.
+    if app
+        .config()
+        .plugins
+        .0
+        .get("updater")
+        .and_then(|config| config.get("endpoints"))
+        .and_then(|value| value.as_array())
+        .is_none_or(|endpoints| endpoints.is_empty())
+    {
+        return;
+    }
     let app = app.clone();
     log::info!(
         "app_update_scheduler_started initial_delay_secs={} interval_secs={}",

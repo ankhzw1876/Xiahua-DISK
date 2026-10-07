@@ -370,7 +370,7 @@ pub fn run() {
             Ok(())
         })
         .build(tauri::generate_context!())
-        .expect("MangoDisk failed to start");
+        .expect("Xiahua DISK failed to start");
     app.run(move |_app, _event| {
         if !webview_update_required && matches!(_event, tauri::RunEvent::Ready) {
             resident::panel::prewarm(_app);

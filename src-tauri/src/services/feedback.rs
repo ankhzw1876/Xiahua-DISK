@@ -21,7 +21,7 @@ const MAX_ATTACHMENT_BYTES: usize = 10 * 1024 * 1024;
 const MAX_LOG_FILE_COUNT: usize = 3;
 const FEEDBACK_CONNECT_TIMEOUT: Duration = Duration::from_secs(10);
 const FEEDBACK_REQUEST_TIMEOUT: Duration = Duration::from_secs(60);
-const PRODUCTION_FEEDBACK_URL: &str = "https://mangodisk.app/api/v1/feedbacks";
+const PRODUCTION_FEEDBACK_URL: Option<&str> = option_env!("XIAHUA_DISK_FEEDBACK_URL");
 
 #[derive(Debug)]
 pub enum FeedbackError {
@@ -259,6 +259,7 @@ impl FeedbackSubmissionService {
         app_version: &str,
         request: SubmitFeedbackRequest,
     ) -> Result<SubmitFeedbackResult, FeedbackError> {
+        let endpoint = feedback_endpoint()?;
         validate_submission(&request)?;
         let started_at = Instant::now();
         let request_id = request.request_id.clone();
@@ -337,7 +338,7 @@ impl FeedbackSubmissionService {
             .build()
             .map_err(|_| FeedbackError::Network)?;
         let response = client
-            .post(feedback_endpoint())
+            .post(endpoint)
             .multipart(form)
             .send()
             .await
@@ -520,17 +521,19 @@ fn create_recent_log_archive(
     Ok((Some(archive), written_count))
 }
 
-fn feedback_endpoint() -> String {
+fn feedback_endpoint() -> Result<String, FeedbackError> {
     #[cfg(debug_assertions)]
     {
-        let override_url = std::env::var("MANGODISK_FEEDBACK_API_URL")
+        let override_url = std::env::var("XIAHUA_DISK_FEEDBACK_API_URL")
             .ok()
-            .or_else(|| option_env!("MANGODISK_FEEDBACK_API_URL").map(str::to_string));
+            .or_else(|| option_env!("XIAHUA_DISK_FEEDBACK_API_URL").map(str::to_string));
         if let Some(value) = override_url.and_then(|value| loopback_feedback_endpoint(&value)) {
-            return value;
+            return Ok(value);
         }
     }
-    PRODUCTION_FEEDBACK_URL.to_string()
+    PRODUCTION_FEEDBACK_URL
+        .map(str::to_string)
+        .ok_or(FeedbackError::ServerRejected)
 }
 
 #[cfg(debug_assertions)]

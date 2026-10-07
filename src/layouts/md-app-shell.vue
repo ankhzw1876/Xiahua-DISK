@@ -4,7 +4,7 @@ import { computed, defineAsyncComponent, onBeforeUnmount, onMounted, ref, watch 
 import { useI18n } from 'vue-i18n';
 import { toast } from 'vue-sonner';
 
-import { APP_UPDATE_STATUS_IDS } from '@/lib/models/app-update';
+import { PROJECT_LINKS } from '@/lib/models/application-shell';
 import type { ApplicationLeftoverCandidate, ApplicationUninstallBatchSelection } from '@/lib/models/application';
 import type { ApplicationCloseMode } from '@/lib/models/application-close';
 import type { DirectoryEntryInfo } from '@/lib/models/analysis';
@@ -139,7 +139,6 @@ const systemSettingsStore = useSystemSettingsStore();
 // keeps a user's toggle separate from the responsive window-width decision.
 const sidebarLayout = ref(createSidebarLayoutState(window.innerWidth));
 const sidebarExpanded = computed(() => sidebarLayout.value.expanded);
-const UPDATE_CHECK_ERROR_TOAST_ID = 'app-update-check-error';
 const LARGE_FILE_DELETE_TOAST_ID = 'large-file-delete-result';
 const DUPLICATE_FILE_DELETE_TOAST_ID = 'duplicate-file-delete-result';
 const DEEP_CLEANUP_TOAST_ID = 'deep-cleanup-result';
@@ -389,18 +388,10 @@ async function openAboutSettings() {
   await navigate(PAGE_IDS.settings);
   settingsFocusRevision.value += 1;
   appUpdateStore.showAbout();
-  if (!appUpdateStore.update && !appUpdateStore.busy) {
-    await appUpdateStore.check(true, false);
-  }
 }
 
 async function checkForUpdates() {
-  await appUpdateStore.check(true);
-  if (appUpdateStore.status !== APP_UPDATE_STATUS_IDS.error) return;
-  toast.error(t('settings.updateCheckFailedTitle'), {
-    description: appUpdateStore.checkError || t('settings.updateCheckUnknownError'),
-    id: UPDATE_CHECK_ERROR_TOAST_ID,
-  });
+  await openExternalLink(`${PROJECT_LINKS.repository}/releases`);
 }
 
 function saveSettings(settings: AppSettings) {
@@ -871,7 +862,8 @@ async function cancelDeepCleanup() {
   min-width: 0;
   height: 100vh;
   overflow: hidden;
-  border-radius: 12px 0 0;
+  border-radius: 0;
+  border-left: 1px solid var(--sidebar-border);
   @apply bg-background;
 }
 </style>

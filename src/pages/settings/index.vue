@@ -7,7 +7,8 @@ import MdAutostartSettings from '@/pages/settings/components/md-autostart-settin
 import MdPageShell from '@/components/custom/md-page-shell.vue';
 import MdStatusBadge from '@/components/custom/md-status-badge.vue';
 import MdIcon from '@/components/icons/md-icon.vue';
-import MdFeedbackDialog from '@/pages/settings/components/md-feedback-dialog.vue';
+import { PROJECT_LINKS } from '@/lib/models/application-shell';
+import { LinkService } from '@/lib/services/link-service';
 import MdAiFeatureToggle from '@/pages/settings/components/md-ai-feature-toggle.vue';
 import MdAiSettingsDialog from '@/components/custom/md-ai-settings-dialog.vue';
 import MdIconMangodisk from '@/components/icons/md-icon-mangodisk.vue';
@@ -56,7 +57,13 @@ const emit = defineEmits<{
 }>();
 const form = reactive<AppSettings>({ ...props.settings });
 const aboutRow = ref<HTMLElement | null>(null);
-const feedbackOpen = ref(false);
+async function openFeedback() {
+  try {
+    await LinkService.open(PROJECT_LINKS.issues);
+  } catch (error) {
+    emit('error', error);
+  }
+}
 const aiSettingsOpen = ref(false);
 const scanExclusionsBusy = computed(
   () =>
@@ -294,7 +301,7 @@ function updateTheme(value: unknown) {
         controls="responsive"
         :title="t('settings.feedbackTitle')"
         :description="t('settings.feedbackDescription')"
-        @click="feedbackOpen = true"
+        @click="openFeedback"
       >
         <template #icon><MdIcon :name="ICON_NAMES.help" /></template>
 
@@ -350,7 +357,6 @@ function updateTheme(value: unknown) {
       </div>
     </MdSettingsGroup>
 
-    <MdFeedbackDialog v-model:open="feedbackOpen" @error="emit('error', $event)" />
     <MdAiSettingsDialog
       v-if="aiStore.enabled"
       v-model:open="aiSettingsOpen"

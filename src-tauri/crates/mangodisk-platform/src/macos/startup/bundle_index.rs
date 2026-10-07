@@ -193,16 +193,13 @@ mod tests {
 
     #[test]
     fn similar_identifier_substrings_do_not_claim_an_unrelated_job() {
-        let application = application("app.mangodisk.desktop", "MangoDisk");
+        let application = application("com.xiahua.disk", "MangoDisk");
         assert_eq!(
             match_score("org.example.mangodiskvmfixture.orphan-agent", &application),
             0
         );
         assert_eq!(match_score("appmangodiskdesktop.helper", &application), 0);
-        assert_eq!(
-            match_score("app.mangodisk.desktop.helper", &application),
-            100
-        );
+        assert_eq!(match_score("com.xiahua.disk.helper", &application), 100);
     }
 
     #[test]

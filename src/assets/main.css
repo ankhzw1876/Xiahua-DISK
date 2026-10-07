@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import './themes/default.css';
-@import './themes/mangodisk.css';
+@import './themes/xiahua-disk.css';
 
 /*
  * Cross-page scrolling behavior belongs in the global utility layer. Feature
@@ -122,9 +122,9 @@
    * drifting back to different header, toolbar, and row rhythms.
    */
   --layout-sidebar-collapsed-width: 68px;
-  --layout-sidebar-expanded-width: 240px;
+  --layout-sidebar-expanded-width: 224px;
   --layout-sidebar-item-height: 40px;
-  --layout-page-padding-inline: 20px;
+  --layout-page-padding-inline: 28px;
   --layout-page-padding-top: 14px;
   --layout-scrollbar-width: 10px;
   --layout-page-header-height: 58px;

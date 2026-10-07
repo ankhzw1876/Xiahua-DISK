@@ -19,8 +19,8 @@ const EXPLANATION_PATH: &str = "/api/v1/ai/explanations";
 // Only this Rust module sees the embedded release key. An extracted shared key
 // is not proof of a genuine installation; quotas and server budgets remain essential.
 fn credentials() -> Result<(&'static str, Vec<u8>), AiError> {
-    let id = option_env!("MANGODISK_AI_KEY_ID").ok_or(AiError::FreeUnavailable)?;
-    let raw = option_env!("MANGODISK_AI_SIGNING_KEY").ok_or(AiError::FreeUnavailable)?;
+    let id = option_env!("XIAHUA_DISK_AI_KEY_ID").ok_or(AiError::FreeUnavailable)?;
+    let raw = option_env!("XIAHUA_DISK_AI_SIGNING_KEY").ok_or(AiError::FreeUnavailable)?;
     let key = URL_SAFE_NO_PAD
         .decode(raw)
         .or_else(|_| STANDARD.decode(raw))
@@ -42,9 +42,9 @@ pub(super) fn available() -> bool {
 fn origin() -> Result<Url, AiError> {
     // A release build cannot redirect signed headers or private context to a debug URL.
     #[cfg(debug_assertions)]
-    let value = option_env!("MANGODISK_AI_LOCAL_ORIGIN").unwrap_or("https://mangodisk.app");
+    let value = option_env!("XIAHUA_DISK_AI_LOCAL_ORIGIN").ok_or(AiError::FreeUnavailable)?;
     #[cfg(not(debug_assertions))]
-    let value = "https://mangodisk.app";
+    let value = option_env!("XIAHUA_DISK_AI_ORIGIN").ok_or(AiError::FreeUnavailable)?;
     let url = Url::parse(value).map_err(|_| AiError::FreeUnavailable)?;
     if url.username() != ""
         || url.password().is_some()

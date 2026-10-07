@@ -710,7 +710,7 @@ mod tests {
     fn mangodisk_operational_caches_are_never_candidates() {
         assert!(OWN_CACHE_DIRECTORIES
             .iter()
-            .any(|name| name.eq_ignore_ascii_case("app.mangodisk.desktop")));
+            .any(|name| name.eq_ignore_ascii_case("com.xiahua.disk")));
     }
 
     #[test]

@@ -1,21 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { expect, it } from 'vitest';
 import { projectWebsiteUrl } from './project-website';
-
-describe('localized project website links', () => {
-  it.each([
-    ['zh-CN', '/zh'],
-    ['zh-TW', '/tw'],
-    ['ja-JP', '/ja'],
-    ['ko-KR', ''],
-    ['ru-RU', ''],
-    ['en-US', ''],
-    ['tr-TR', ''],
-    ['pt-BR', ''],
-    ['unknown', ''],
-  ])('maps %s to a stable documentation route without query parameters', (locale, prefix) => {
-    expect(projectWebsiteUrl(locale)).toBe(`https://mangodisk.app${prefix}`);
-    expect(projectWebsiteUrl(locale, '/docs/ai#custom-service')).toBe(
-      `https://mangodisk.app${prefix}/docs/ai#custom-service`
-    );
-  });
+it.each(['zh-CN', 'en-US', 'unknown'])('keeps %s help links on the fork', locale => {
+  expect(projectWebsiteUrl(locale)).toBe('https://github.com/ankhzw1876/Xiahua-DISK');
+  expect(projectWebsiteUrl(locale, '/docs/ai#custom-service')).toBe('https://github.com/ankhzw1876/Xiahua-DISK#usage');
 });

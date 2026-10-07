@@ -14,8 +14,8 @@ edition = "2021"
 rust-version = "1.88.0"
 authors = ["harry0703 <harry0703@hotmail.com>"]
 license = "GPL-3.0-only"
-repository = "https://github.com/harry0703/MangoDisk"
-homepage = "https://mangodisk.app"
+repository = "https://github.com/ankhzw1876/Xiahua-DISK"
+homepage = "https://github.com/ankhzw1876/Xiahua-DISK"
 
 # Filesystem traversal and content hashing are exercised directly from the desktop development
 # build. Optimizing only these performance-critical packages keeps UI iteration responsive while
