@@ -2,7 +2,7 @@
 
 A cross-platform desktop disk utility, independently rebranded from [MangoDisk](https://github.com/harry0703/MangoDisk) by harry0703. Built with Tauri 2, Vue 3 and Rust. Licensed under GPL-3.0-only; upstream authorship and license are retained.
 
-**Status:** initial fork release in preparation. Download only assets published on this repository's [Releases page](https://github.com/ankhzw1876/Xiahua-DISK/releases). This is a desktop application; a browser preview cannot scan or clean your computer.
+Download packages published on this repository's [Releases page](https://github.com/ankhzw1876/Xiahua-DISK/releases). This is a desktop application; a browser preview cannot scan or clean your computer.
 
 ## Features
 
