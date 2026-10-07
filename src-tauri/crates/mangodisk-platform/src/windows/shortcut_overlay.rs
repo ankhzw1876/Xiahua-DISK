@@ -14,8 +14,8 @@ use crate::{
 pub(super) const SETTING_ID: &str = "windows.explorer.hide-shortcut-arrows";
 const REGISTRY_PATH: &str = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons";
 const VALUE_NAME: &str = "29";
-const ASSET_NAME: &str = "MangoDisk-shortcut-overlay-v2.ico";
-const LEGACY_ASSET_NAME: &str = "MangoDisk-shortcut-overlay-v1.ico";
+const ASSET_NAME: &str = "XiahuaDisk-shortcut-overlay-v2.ico";
+const LEGACY_ASSET_NAME: &str = "XiahuaDisk-shortcut-overlay-v1.ico";
 
 /// Shell icon overrides refer to a real, durable transparent icon. A missing file or an
 /// undocumented blank index in a system DLL can produce black squares after cache rebuilding.

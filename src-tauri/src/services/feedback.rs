@@ -326,7 +326,7 @@ impl FeedbackSubmissionService {
             form = form.part(
                 "diagnosticLog",
                 Part::bytes(archive)
-                    .file_name("MangoDisk-diagnostics.zip")
+                    .file_name("Xiahua-DISK-diagnostics.zip")
                     .mime_str("application/zip")
                     .map_err(|_| FeedbackError::LogArchive)?,
             );

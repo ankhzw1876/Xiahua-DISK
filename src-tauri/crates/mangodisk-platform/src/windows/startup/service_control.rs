@@ -14,7 +14,7 @@ use crate::{
     PlatformStartupDesiredState,
 };
 
-const RESTORE_VALUE: &str = "MangoDiskStartupRestoreV1";
+const RESTORE_VALUE: &str = "XiahuaDiskStartupRestoreV1";
 
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -511,7 +511,7 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "creates temporary services; requires administrator rights and a built MangoDisk helper"]
+    #[ignore = "creates temporary services; requires administrator rights and a built XiahuaDisk helper"]
     fn actual_service_access_denied_preserves_configuration() {
         assert!(std::env::var_os("MANGODISK_TEST_ELEVATION_HELPER_EXE").is_some());
         struct Evidence(std::sync::Mutex<Vec<String>>);
@@ -627,13 +627,13 @@ mod tests {
                 .duration_since(UNIX_EPOCH)
                 .unwrap()
                 .as_nanos();
-            let name = format!("MangoDiskServiceFixture{nonce}");
+            let name = format!("XiahuaDiskServiceFixture{nonce}");
             let directory = std::env::temp_dir().join(&name);
             std::fs::create_dir(&directory).unwrap();
             let binary = directory.join("inert service.exe");
             // The fixture is never started. No real application or service process
             // is stopped by this test; only the SCM configuration is exercised.
-            std::fs::write(&binary, b"inert MangoDisk fixture").unwrap();
+            std::fs::write(&binary, b"inert XiahuaDisk fixture").unwrap();
             let manager = ServiceHandle(
                 unsafe {
                     OpenSCManagerW(PCWSTR::null(), PCWSTR::null(), SC_MANAGER_CREATE_SERVICE)

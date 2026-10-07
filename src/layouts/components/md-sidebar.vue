@@ -208,6 +208,8 @@ watch(
 }
 .nav-list {
   display: flex;
+  min-height: 0;
+  overflow-y: auto;
   flex-direction: column;
   gap: 10px;
   padding-inline: 8px;
@@ -401,6 +403,7 @@ watch(
 }
 .sidebar-footer {
   display: flex;
+  flex: none;
   margin-top: auto;
   flex-direction: column;
   gap: 3px;
