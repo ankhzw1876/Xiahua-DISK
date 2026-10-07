@@ -12,3 +12,7 @@ Local Apple Silicon macOS validation:
 - Visual design studies checked at 1440×900. No real cleanup was executed during this branding verification.
 
 Release CI additionally checks and packages macOS, Windows and Linux. Refer to the release-associated workflow run for the exact commit and platform results. Packages are unsigned; no update-signing or notarization credentials were provisioned.
+
+Published release: [v1.1.6-xiahua.1](https://github.com/ankhzw1876/Xiahua-DISK/releases/tag/v1.1.6-xiahua.1). [Final CI run](https://github.com/ankhzw1876/Xiahua-DISK/actions/runs/37593500129) passed all three platform jobs and publication. Release commit: `adb1e44a82593e7952bd8bf639d71817e7d479fa`.
+
+Actual native light and dark settings views were inspected; the theme was restored to the system setting and the test application exited. The downloaded Apple Silicon DMG passed `hdiutil verify`; its Actions artifact SHA-256 matched GitHub metadata.

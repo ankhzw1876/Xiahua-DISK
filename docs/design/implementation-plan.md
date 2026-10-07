@@ -6,4 +6,4 @@
 - [x] Separate release/update/feedback/AI endpoints from upstream services; preserve cleanup safety.
 - [x] Install frontend and Rust dependencies in task-scoped locations. Run repository-required checks and relevant UI checks.
 - [x] Create the user's GitHub repository, push reviewed source, configure CI and desktop release builds.
-- [ ] Verify workflow outcomes and release downloads; report unsigned platform limitations precisely.
+- [x] Verify workflow outcomes and release downloads; report unsigned platform limitations precisely.
