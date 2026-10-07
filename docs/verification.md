@@ -8,6 +8,7 @@ Local Apple Silicon macOS validation:
 - Rust: format, Clippy with warnings denied, and all-target workspace check passed.
 - Rust workspace tests: 1,287 passed, 148 ignored (platform/privilege/external-service checks), zero failed.
 - Debug macOS app bundle built and launched. Actual cleanup, settings and About windows display Xiahua DISK, the new logo and the Precision Console theme. About offers the fork's GitHub Releases action.
+- Built CSS contrast checks passed for six foreground/background pairs in each theme (minimum measured ratio 5.13:1).
 - Visual design studies checked at 1440×900. No real cleanup was executed during this branding verification.
 
 Release CI additionally checks and packages macOS, Windows and Linux. Refer to the release-associated workflow run for the exact commit and platform results. Packages are unsigned; no update-signing or notarization credentials were provisioned.
